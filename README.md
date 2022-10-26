@@ -1,24 +1,120 @@
-# Black-Jack
-Blackjack is a popular gambling card game in which players attempt to make a hand as close as possible to a sum of 21 without going over.
+# Parameters:
+#   card_rank: The numeric representation of a card (1-13)
+#
+# Return:
+#   none
+def print_card_name(card_rank):
+    if card_rank == 1:
+    # A 1 stands for an ace.
+        card_name = "Ace"
+    elif card_rank == 11:
+    # An 11 stands for a jack.
+        card_name = "Jack"
+    elif card_rank == 12:
+    # A 12 stands for a queen.
+        card_name = "Queen"
+    elif card_rank == 13:
+    # A 13 stands for a king.
+        card_name = "King"
+    else:
+    # All other cards are named by their number, or rank.
+        card_name = str(card_rank)
 
-Each player is dealt an initial hand of 2 cards. The first player may then choose to "hit" (draw another card into their hand) or "stand" (keep their current hand), and play passes to the next player. A player may hit as many times as they want, but if they go over 21, they "bust" - or automatically lose.
+    if card_rank == 1 or card_rank == 8:
+        print('Drew an ' + card_name)
+    elif card_rank < 1 or card_rank > 13:
+        print("BAD CARD")
+    else:
+        print('Drew a ' + card_name)
 
-The dealer plays their turn last. The dealer plays by a fixed set of rules. They must stand if their hand is 17 or over. Otherwise, they must continue to hit until they reach 17 or bust.
+    # Implement card_name function here
 
-Scoring
-In determining hand totals, cards get the following values:
+# Draws a new random card, prints its name, and returns its value.
+# 
+# Parameters:
+#   none
+#
+# Return:
+#   an int representing the value of the card. All cards are worth
+#   the same as the card_rank except Jack, Queen, King, and Ace.
+def draw_card():
+    # Implement draw_card function here
+    card_rank = randint(1,13)
+    print_card_name(card_rank)
+    if card_rank == 11 or card_rank == 12 or card_rank == 13:
+    # Jacks, Queens, and Kings are worth 10.
+        card_value = 10
+    elif card_rank == 1:
+    # Aces are worth 11.
+        card_value = 11
+    else:
+    # All other cards are worth the same as their rank.
+        card_value = card_rank
+    return card_value
 
-All face cards (Jacks, Queens, and Kings) are worth 10
 
-Aces can count as either 1 or 11, but for the purposes of our blackjack program, aces are always worth 11.
+# Prints the given message formatted as a header. A header looks like:
+# -----------
+# message
+# -----------
+# 
+# Parameters:
+#   message: the string to print in the header
+#
+# Return:
+#   none
+def print_header(message):
+    # Implement print_header function here
+    print("-----------")
+    print(message)
+    print("-----------")
 
-All other cards have the value shown on the card (ie 2 will be worth 2, 3 will be worth 3, and so on).
+# Prints turn header and draws a starting hand, which is two cards.
+# 
+# Parameters:
+#   name: The name of the player whose turn it is.
+#
+# Return:
+#   The hand total, which is the sum of the two newly drawn cards.
+def draw_starting_hand(name):
+    print_header(name + " TURN")
+    starting_hand = draw_card() + draw_card()
+    return starting_hand
+    # Implement draw_starting_hand function here
 
-Outcomes
-Each player (excluding the dealer) has one of the three possible outcomes:
-
-Lose: any player who busts or has a hand value less than the dealer, loses.
-
-Win: any player who does not bust and has a hand value greater than the dealer, wins.
-
-Push: any player who does not bust and has a hand value matching the dealer, pushes (ties).
+# Prints the hand total and status at the end of a player's turn.
+# 
+# Parameters:
+#   hand_value: the sum of all of a player's cards at the end of their turn.
+#
+# Return:
+#   none
+def print_end_turn_status(hand_value):
+    # Implement print_end_turn_status function here
+    print("Final hand: " +str(hand_value)+".")
+    if hand_value == 21:
+        print("BLACKJACK!")
+    elif hand_value > 21:
+        print("BUST.")
+        
+# Prints the end game banner and the winner based on the final hands.
+# 
+# Parameters:
+#   user_hand: the sum of all cards in the user's hand
+#   dealer_hand: the sum of all cards in the dealer's hand
+#
+# Return:
+#   none
+def print_end_game_status(user_hand, dealer_hand):
+    # Implement print_end_game_status function here
+    print_header("GAME RESULT")
+    if dealer_hand < user_hand and user_hand <= 21:
+        print("You win!")
+    elif dealer_hand == user_hand and user_hand <= 21:
+        print("Push.")
+    elif user_hand > 21:
+        print("Dealer wins!")
+    elif user_hand <= 21  and dealer_hand > 21:
+        print("You win!")
+    else:
+        print("Dealer wins!")
